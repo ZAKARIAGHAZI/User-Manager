@@ -3,13 +3,18 @@ import { PORT } from './config/env.js'
 import userRouter from './routes/user.router.js'
 import authRouter from "./routes/auth.router.js";
 import connectToDatabase from "./database/mongodb.js";
+import errorMiddleware from "./middlewares/error.meddleware.js";
+import cookieParser from "cookie-parser";
 
 const server = express();
 
+server.use(express.json());
+server.use(express.urlencoded({ extended: false }));
+server.use(cookieParser());
 
-server.use('/api/v1/user' , userRouter)
+server.use('/api/v1/user' , userRouter);
 server.use("/api/v1/auth", authRouter);
-
+server.use(errorMiddleware)
 
 server.listen( PORT , async () => {
   console.log(`UserManager API running on http://localhost:${PORT}`);
