@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const userScheme = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
@@ -33,7 +33,14 @@ const userScheme = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Remove password automatically when converting to JSON
+userSchema.set("toJSON", {
+  transform: (doc, ret) => {
+    delete ret.password;
+    return ret;
+  }
+});
 
-const User = mongoose.model('User', userScheme)
+const User = mongoose.model('User', userSchema)
 
 export default User 
