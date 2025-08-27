@@ -50,15 +50,15 @@ export const signIn = async (req, res, next) => {
         // Check if user exists
         const user = await User.findOne({ email });
         if (!user) {
-            const error = new Error('Invalid email or password');
-            error.statusCode = 401;
+            const error = new Error('User not found');
+            error.statusCode = 404;
             throw error;
         }
 
         const isPasswordValide = await bcrypt.compare(password, user.password);
 
         if (!isPasswordValide) {
-            const error = new Error('Invalid email or password');
+            const error = new Error('Invalid password');
             error.statusCode = 401;
             throw error;
         }
@@ -75,5 +75,5 @@ export const signIn = async (req, res, next) => {
     }
 };
 export const signOut = async (req, res, next) => {
-    console.log("signout controller");
+    
 };
