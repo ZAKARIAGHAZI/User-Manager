@@ -39,4 +39,10 @@ const authorize = async (req, res, next) => {
   }
 };
 
-export default authorize;
+const isAdmin = (req, res, next) => {
+  if (req.user && req.user.role === "admin") {
+    return next();
+  }
+  return res.status(403).json({ success: false, message: "Accès interdit" });
+};
+export default { authorize, isAdmin };
