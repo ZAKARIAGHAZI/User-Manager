@@ -3,10 +3,10 @@ import { getUsers, getUser, updateUser, createUser, deleteUser } from '../contro
 import {authorize, isAdmin}  from '../middlewares/auth.middleware.js';
 const userRouter = Router();
 
-userRouter.get('/',isAdmin, getUsers);
-userRouter.get("/:id",authorize, getUser);
-userRouter.put("/:id",authorize, updateUser);
-userRouter.post("/", createUser);
+userRouter.get('/', authorize, isAdmin, getUsers);
+userRouter.get("/:id", authorize, getUser);
+userRouter.put("/:id", authorize, updateUser);
+userRouter.post("/", authorize, createUser);
 userRouter.delete("/:id", authorize, deleteUser);
 
 export default userRouter;

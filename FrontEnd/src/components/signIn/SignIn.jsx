@@ -24,10 +24,18 @@ const SignIn = () => {
         formData
       );
 
-      localStorage.setItem("token", res.data.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.data.user));
+      const { token, user } = res.data.data;
+      console.log("User data:", user);
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
 
-      navigate("/dashboard");
+      alert("✅ Login successful");
+
+      if (user.role === "admin") {
+        navigate("/dashboard/admin");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err) {
       alert(err.response?.data?.message || "Something went wrong ❌");
     } finally {
@@ -124,7 +132,7 @@ const SignIn = () => {
                       <p className="m-0 text-secondary text-center">
                         Don't have an account?{" "}
                         <Link
-                          to="/signup"
+                          to="/sign-up"
                           className="link-primary text-decoration-none"
                         >
                           Sign up

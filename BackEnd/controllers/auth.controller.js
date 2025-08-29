@@ -9,7 +9,7 @@ export const signUp = async (req, res, next) => {
   const session = await mongoose.startSession();
   session.startTransaction();
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, role} = req.body;
 
     // Check if user already exists
     const existingUser = await User.findOne({ email }).session(session);
@@ -30,6 +30,7 @@ export const signUp = async (req, res, next) => {
           lastName,
           email,
           password: hashedPassword,
+          role,
         },
       ],
       { session }
