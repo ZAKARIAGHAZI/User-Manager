@@ -1,8 +1,16 @@
-
+import { Routes, Route } from "react-router-dom";
+import SignIn from "./components/signIn/SignIn";
+import SignUp from "./components/signUp/SignUp";
 
 const App = () => {
   return (
-    <div>App</div>
+    <>
+      <Routes>
+        <Route path="/sign-in" element={<SignIn />} />
+        <Route path="/sign-up" element={<SignUp />} />
+      </Routes>
+    
+    </>
   )
 }
 
